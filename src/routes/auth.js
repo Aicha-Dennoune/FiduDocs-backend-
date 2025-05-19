@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../config/db');
+const authController = require('../controllers/authController');
 
 router.post('/login', (req, res) => {
   console.log('Route /login appelée');
@@ -35,5 +36,8 @@ router.post('/login', (req, res) => {
     }
   });
 });
+
+// Route pour l'inscription des clients
+router.post('/inscription-client', authController.inscriptionClient);
 
 module.exports = router;
