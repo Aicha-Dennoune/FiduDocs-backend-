@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../config/db');
 const authController = require('../controllers/authController');
+const jwt = require('jsonwebtoken');
 
 router.post('/login', (req, res) => {
   console.log('Route /login appelée');
@@ -21,6 +22,12 @@ router.post('/login', (req, res) => {
 
     if (results.length > 0) {
       const utilisateur = results[0];
+      // Générer le token JWT
+      const token = jwt.sign(
+        { id: utilisateur.Id }, // payload
+        'votre_secret_jwt',     // même clé que dans le middleware
+        { expiresIn: '7d' }
+      );
       res.json({
         message: 'Connexion réussie',
         utilisateur: {
@@ -29,7 +36,8 @@ router.post('/login', (req, res) => {
           prenom: utilisateur.Prenom,
           email: utilisateur.Email,
           role: utilisateur.Role
-        }
+        },
+        token // <-- renvoyer le token au frontend
       });
     } else {
       res.status(401).json({ message: 'Email ou mot de passe incorrect' });
