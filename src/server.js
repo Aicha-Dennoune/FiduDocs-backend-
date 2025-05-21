@@ -22,7 +22,7 @@ const clientDocumentRoutes = require('./routes/clientDocument');
 
 // Montage des routes
 app.use('/api/auth', authRoutes);
-app.use('/api/users', userRoutes);
+app.use('/api/user', userRoutes);
 app.use('/api/clients', clientRoutes);
 app.use('/api/documents', documentRoutes);
 app.use('/api/client-documents', clientDocumentRoutes);
