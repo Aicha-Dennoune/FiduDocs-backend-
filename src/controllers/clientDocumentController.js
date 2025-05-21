@@ -36,7 +36,7 @@ const downloadDocument = (req, res) => {
 
   // Vérifier que le document appartient bien au client
   const query = `
-    SELECT fichier as nomFichier, fichier as cheminFichier
+    SELECT fichier
     FROM Document
     WHERE Id = ? AND ClientId = ?
   `;
@@ -52,8 +52,8 @@ const downloadDocument = (req, res) => {
     }
 
     const document = results[0];
-    const filePath = path.join(__dirname, '../../uploads/documents', document.cheminFichier);
-    res.download(filePath, document.nomFichier);
+    const filePath = path.join(__dirname, '../../uploads/documents', document.fichier);
+    res.download(filePath, document.fichier);
   });
 };
 
