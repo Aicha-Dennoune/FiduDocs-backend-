@@ -1,7 +1,7 @@
 const db = require('../config/db');
 const path = require('path');
 
-// Récupérer les documents reçus par le client
+// Récupérer les documents reçus par le client (posés par le fiduciaire)
 const getDocumentsRecus = (req, res) => {
   const clientId = req.user.id;
 
@@ -72,7 +72,7 @@ const getDocumentsPoses = (req, res) => {
     FROM Document d
     JOIN Fiduciaire f ON d.Fiduciaire = f.Id
     JOIN Utilisateur u ON f.Id = u.Id
-    WHERE d.ClientId = ? AND d.Type = 'reçu'
+    WHERE d.ClientId = ? AND d.Type = 'posé'
     ORDER BY d.date DESC
   `;
 

@@ -22,9 +22,9 @@ router.post('/login', (req, res) => {
 
     if (results.length > 0) {
       const utilisateur = results[0];
-      // Générer le token JWT
+      // Générer le token JWT avec le rôle inclus
       const token = jwt.sign(
-        { id: utilisateur.Id }, // payload
+        { id: utilisateur.Id, role: utilisateur.Role }, // payload avec le rôle
         'votre_secret_jwt',     // même clé que dans le middleware
         { expiresIn: '7d' }
       );

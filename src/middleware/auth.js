@@ -31,6 +31,7 @@ const verifyToken = (req, res, next) => {
 };
 
 const isClient = (req, res, next) => {
+  console.log('Rôle utilisateur (isClient):', req.user && req.user.role);
   if (!req.user) {
     return res.status(401).json({ message: 'Non authentifié' });
   }
