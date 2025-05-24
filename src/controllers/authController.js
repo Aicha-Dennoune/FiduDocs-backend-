@@ -18,11 +18,11 @@ exports.inscriptionClient = (req, res) => {
     const utilisateurId = result.insertId;
     console.log('Utilisateur créé avec l\'ID:', utilisateurId);
 
-    // 2. Insérer dans la table Client
-    const sqlClient = 'INSERT INTO Client (Id, TypeClient) VALUES (?, ?)';
-    console.log('Requête Client:', sqlClient, [utilisateurId, typeClient]);
+    // 2. Insérer dans la table Client avec FiduciaireId=2
+    const sqlClient = 'INSERT INTO Client (Id, TypeClient, FiduciaireId) VALUES (?, ?, ?)';
+    console.log('Requête Client:', sqlClient, [utilisateurId, typeClient, 2]);
     
-    db.query(sqlClient, [utilisateurId, typeClient], (err, result) => {
+    db.query(sqlClient, [utilisateurId, typeClient, 2], (err, result) => {
       if (err) {
         console.error('Erreur lors de l\'insertion dans Client:', err);
         return res.status(500).json({ message: 'Erreur serveur lors de l\'insertion dans Client' });
