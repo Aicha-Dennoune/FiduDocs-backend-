@@ -286,4 +286,16 @@ exports.updateMe = (req, res) => {
       });
     });
   });
+};
+
+exports.deleteClient = (req, res) => {
+  const clientId = req.params.id;
+  const sql = 'DELETE FROM Utilisateur WHERE Id = ?';
+  db.query(sql, [clientId], (err, result) => {
+    if (err) {
+      console.error('Erreur lors de la suppression du client:', err);
+      return res.status(500).json({ message: 'Erreur lors de la suppression du client' });
+    }
+    res.json({ success: true });
+  });
 }; 

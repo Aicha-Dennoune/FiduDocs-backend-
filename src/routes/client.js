@@ -12,5 +12,6 @@ router.put('/me', clientAuth, clientController.updateMe);
 router.get('/', fiduciaireAuth, clientController.getAllClients);
 router.get('/:id', fiduciaireAuth, clientController.getClient);
 router.put('/:id', fiduciaireAuth, clientController.updateClient);
+router.delete('/:id', fiduciaireAuth, clientController.deleteClient);
 
 module.exports = router; 
