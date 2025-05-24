@@ -14,7 +14,7 @@ router.get('/all-clients', verifyToken, messageController.getAllClients);
 // Retourner le nombre de messages non lus pour le client connecté
 router.get('/unread/client', verifyToken, messageController.countUnreadForClient);
 // Retourner le nombre de messages non lus d'un client spécifique pour le fiduciaire
-router.get('/unread/client/:clientId', verifyToken, messageController.countUnreadForClient);
+router.get('/unread/client/:clientId', verifyToken, messageController.countUnreadForFiduciaireFromClient);
 // Retourner le nombre de messages non lus pour le fiduciaire
 router.get('/unread/fiduciaire', verifyToken, messageController.countUnreadForFiduciaire);
 // Marquer tous les messages du client comme lus

@@ -51,6 +51,21 @@ exports.getAllClients = (req, res) => {
 
 // Compter les messages non lus pour le client connecté
 exports.countUnreadForClient = (req, res) => {
+  const clientId = req.user.id;
+  const sql = `
+    SELECT COUNT(*) AS unreadCount
+    FROM Message
+    WHERE Destinataire = ? AND EstLu = 0
+  `;
+  const db = require('../config/db');
+  db.query(sql, [clientId], (err, rows) => {
+    if (err) return res.status(500).json({ error: 'Erreur serveur' });
+    res.json({ unread: rows[0].unreadCount });
+  });
+};
+
+// Compter les messages non lus envoyés par un client donné pour le fiduciaire
+exports.countUnreadForFiduciaireFromClient = (req, res) => {
   const fiduciaireId = req.user.id;
   const clientId = req.params.clientId;
   const sql = `
@@ -69,13 +84,17 @@ exports.countUnreadForClient = (req, res) => {
 exports.markAllAsReadForClient = (req, res) => {
   const clientId = req.user.id;
   const sql = `
-    UPDATE Message
-    SET EstLu = 1
+    UPDATE Message 
+    SET EstLu = 1 
     WHERE Destinataire = ? AND EstLu = 0
   `;
   const db = require('../config/db');
   db.query(sql, [clientId], (err, result) => {
-    if (err) return res.status(500).json({ error: 'Erreur serveur' });
+    if (err) {
+      console.error('Erreur lors de la mise à jour des messages:', err);
+      return res.status(500).json({ error: 'Erreur serveur' });
+    }
+    console.log('Messages marqués comme lus:', result.affectedRows);
     res.json({ success: true, affectedRows: result.affectedRows });
   });
 };
