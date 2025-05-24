@@ -18,12 +18,14 @@ const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
 const clientRoutes = require('./routes/client');
 const documentRoutes = require('./routes/document');
+const rendezvousRoutes = require('./routes/rendezvous');
 
 // Montage des routes
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/clients', clientRoutes);
 app.use('/api/documents', documentRoutes);
+app.use('/api/rendezvous', rendezvousRoutes);
 
 // Middleware pour servir les fichiers statiques
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));

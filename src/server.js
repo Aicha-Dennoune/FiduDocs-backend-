@@ -18,6 +18,7 @@ const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
 const clientRoutes = require('./routes/client');
 const documentRoutes = require('./routes/document');
+const rendezvousRoutes = require('./routes/rendezvous');
 const clientDocumentRoutes = require('./routes/clientDocument');
 const messageRoutes = require('./routes/message');
 
@@ -26,6 +27,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/clients', clientRoutes);
 app.use('/api/documents', documentRoutes);
+app.use('/api/rendezvous', rendezvousRoutes);
 app.use('/api/client-documents', clientDocumentRoutes);
 app.use('/api/messages', messageRoutes);
 
