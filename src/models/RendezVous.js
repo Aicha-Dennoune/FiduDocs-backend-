@@ -15,7 +15,16 @@ const RendezVous = {
     db.query('DELETE FROM RendezVous WHERE Id = ? AND ClientId = ?', [id, clientId], callback);
   },
   getByFiduciaire: (fiduciaireId, callback) => {
-    db.query('SELECT * FROM RendezVous WHERE FiduciaireId = ? ORDER BY Date DESC, Heure DESC', [fiduciaireId], callback);
+    db.query(
+      `SELECT r.*, u.Nom as ClientNom, u.Prenom as ClientPrenom
+       FROM RendezVous r
+       JOIN Client c ON r.ClientId = c.Id
+       JOIN Utilisateur u ON c.Id = u.Id
+       WHERE r.FiduciaireId = ?
+       ORDER BY r.Date DESC, r.Heure DESC`,
+      [fiduciaireId],
+      callback
+    );
   },
   updateStatut: (id, fiduciaireId, statut, callback) => {
     db.query('UPDATE RendezVous SET Statut = ? WHERE Id = ? AND FiduciaireId = ?', [statut, id, fiduciaireId], callback);
